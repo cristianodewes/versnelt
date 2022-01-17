@@ -28,19 +28,18 @@ Projeto Java composto por dois microserviços REST Springs (API Cliente e API Lo
 
 - [RabbitMQ](https://www.rabbitmq.com/) - É um servidor de mensageria de código aberto (open source) desenvolvido em Erlang, implementado para suportar mensagens em um protocolo denominado Advanced Message Queuing Protocol (AMQP). Ele possibilita lidar com o tráfego de mensagens de forma rápida e confiável, além de ser compatível com diversas linguagens de programação, possuir interface de administração nativa e ser multiplataforma.
 
-#API Loja
-## Sobre o Projeto
+
+## API LOJA
 
 Para criar, alterar e buscar endereços e pedidos é necessário que o cliente esteja logado, o mesmo é validado por Bearer Token, autenticação JWT. Produtos podem ser buscados livremente, porém seu cadastro e alteração exige login.
 
 A API de loja consiste num microserviço de cadatro de lojas, produtos e endereços. Uma loja pode possuir vários produtos, vários pedidos e apenas um endereço. Todo cadastro, alteração e delete de lojas ou produtos refletirá na api do cliente, que recebe os dados via RabbitMQ. A loja também recebe os pedidos via menssageria e pode alterar seu estado, quando necessário, para ENVIADO, informando o cliente que o mesmo foi enviado.
 
 
-## Modelagem do banco de dados
+### Modelagem do banco de dados
 ![DiagramaAPILojista](https://user-images.githubusercontent.com/8474709/149758574-32cd96f6-eca7-46f9-9f37-57aeda16ed14.png)
 
-#API CLIENTE
-## Sobre o Projeto
+## API CLIENTE
 
 A API de cliente consiste numa microserviço de cadastro de clientes, endereços, e pedidos.
 Para criar, alterar e buscar endereços e pedidos é necessário que o cliente esteja logado, o mesmo é validado por autenticação JWT.
@@ -48,7 +47,7 @@ O pedido antes de ser persistido é validado, confirmando se a loja existe, se o
 A api do cliente recebe, via RabbitMQ, os dados dos produtos e lojas cadastrados na api de loja para que se possa fazer a validação. Também envia os dados do pedido criado (Cliente, Endereço, Loja, Produtos, Valor Total, data de criação, data de envio, data de entrega e estado do pedido) para a api de loja. Quando o estado do pedido estiver como ENVIADO é possível, por meio da api do cliente, informar a entrega do mesmo refletindo os dados na api de loja.
 
 
-## Modelagem do banco de dados
+### Modelagem do banco de dados
   
 
 ![DiagramaUMl](https://user-images.githubusercontent.com/8474709/149757999-00d02107-d759-4850-9820-8936aa6fe4c4.png)
